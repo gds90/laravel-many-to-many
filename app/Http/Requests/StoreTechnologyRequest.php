@@ -13,7 +13,7 @@ class StoreTechnologyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class StoreTechnologyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:50|unique:technologies',
+            'badge_color' => 'required|max:50'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Il nome della tecnologia è obbligatorio',
+            'name.max' => 'Il nome della tecnologia non può superare i 50 caratteri',
+            'name.unique' => 'Esiste già una tecnologia con questo nome'
         ];
     }
 }

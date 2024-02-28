@@ -6,8 +6,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center ">
                     <h2 class="text-uppercase text-danger ">Lista tecnologie:</h2>
-                    <a href="{{ route('admin.types.create') }}" class="btn btn-sm btn-success" data-bs-toggle="modal"
-                        data-bs-target="#modal_type_add">
+                    <a href="{{ route('admin.technologies.create') }}" class="btn btn-sm btn-success">
                         <i class="fa-solid fa-plus me-2"></i>Aggiungi nuova tecnologia
                     </a>
 
@@ -43,7 +42,7 @@
                                             class="btn btn-sm btn-outline-danger ms-1">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
-                                        {{-- @include('admin.technologies.partials.modal_delete') --}}
+                                        @include('admin.technologies.partials.modal_delete')
                                     </div>
                                 </td>
                             </tr>

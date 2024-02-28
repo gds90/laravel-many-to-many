@@ -7,6 +7,7 @@ use App\Http\Requests\UpdateTechnologyRequest;
 use App\Models\Technology;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TechnologyController extends Controller
 {
@@ -28,7 +29,18 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        $badge_colors = [
+            ['name' => 'Blu', 'badge_color' => 'primary'],
+            ['name' => 'Grigio', 'badge_color' => 'secondary'],
+            ['name' => 'Verde', 'badge_color' => 'success'],
+            ['name' => 'Rosso', 'badge_color' => 'danger'],
+            ['name' => 'Giallo', 'badge_color' => 'warning'],
+            ['name' => 'Azzurro', 'badge_color' => 'info'],
+            ['name' => 'Bianco', 'badge_color' => 'light'],
+            ['name' => 'Nero', 'badge_color' => 'dark'],
+        ];
+
+        return view('admin.technologies.create', compact('badge_colors'));
     }
 
     /**
@@ -39,7 +51,24 @@ class TechnologyController extends Controller
      */
     public function store(StoreTechnologyRequest $request)
     {
-        //
+        // recupero i dati inviati dalla form
+        $form_data = $request->all();
+
+        // creo una nuova istanza del model Technology
+        $technology = new Technology();
+
+        // creo lo slug della tecnologia
+        $slug = Str::slug($form_data['name'], '-');
+        $form_data['slug'] = $slug;
+
+        // riempio gli altri campi con la funzione fill()
+        $technology->fill($form_data);
+
+        // salvo il record sul db
+        $technology->save();
+
+        // effettuo il redirect alla view index
+        return redirect()->route('admin.technologies.index');
     }
 
     /**
