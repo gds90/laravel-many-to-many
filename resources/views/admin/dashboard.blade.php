@@ -16,6 +16,9 @@
                     <div class="card-body">
                         <a href="{{ route('admin.types.index') }}" class="dashboard-link">Tipologie progetti</a>
                     </div>
+                    <div class="card-body">
+                        <a href="{{ route('admin.technologies.index') }}" class="dashboard-link">Tecnologie</a>
+                    </div>
                 </div>
             </div>
         </div>

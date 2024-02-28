@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController as DashboardController;
 use App\Http\Controllers\Admin\ProjectController as ProjectController;
 use App\Http\Controllers\Admin\TypeController as TypeController;
+use App\Http\Controllers\Admin\TechnologyController as TechnologyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::middleware(['auth', 'verified'])->name('admin.')->prefix('admin')->group(
     Route::resource('projects', ProjectController::class)->parameters(['projects' => 'project:slug']);
     // ROTTA TYPE CONTROLLER
     Route::resource('types', TypeController::class)->parameters(['types' => 'type:slug']);
+    // ROTTA TECHNOLOGY CONTROLLER
+    Route::resource('technologies', TechnologyController::class)->parameters(['technologies' => 'technology:slug']);
 });
 
 
