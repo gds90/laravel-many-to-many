@@ -90,7 +90,18 @@ class TechnologyController extends Controller
      */
     public function edit(Technology $technology)
     {
-        //
+        $badge_colors = [
+            ['name' => 'Blu', 'badge_color' => 'primary'],
+            ['name' => 'Grigio', 'badge_color' => 'secondary'],
+            ['name' => 'Verde', 'badge_color' => 'success'],
+            ['name' => 'Rosso', 'badge_color' => 'danger'],
+            ['name' => 'Giallo', 'badge_color' => 'warning'],
+            ['name' => 'Azzurro', 'badge_color' => 'info'],
+            ['name' => 'Bianco', 'badge_color' => 'light'],
+            ['name' => 'Nero', 'badge_color' => 'dark'],
+        ];
+
+        return view('admin.technologies.edit', compact('technology', 'badge_colors'));
     }
 
     /**
@@ -102,7 +113,27 @@ class TechnologyController extends Controller
      */
     public function update(UpdateTechnologyRequest $request, Technology $technology)
     {
-        //
+        // recupero i dati inviati dalla form
+        $form_data = $request->all();
+
+        // controllo che non esista un'altra tecnologia con lo stesso titolo passato dal form di modifica
+        $exists = Technology::where('name', 'LIKE', $form_data['name'])
+            ->where('id', '!=', $technology->id)
+            ->get();
+
+        if (count($exists) > 0) {
+            $error_message = 'Hai inserito un titolo già presente in un altro articolo';
+            return redirect()->route('admin.technologies.edit', compact('technology', 'error_message'));
+        }
+
+        // creo lo slug della tipologia
+        $form_data['slug'] = Str::slug($form_data['name'], '-');
+
+        // aggiorno il record sul db
+        $technology->update($form_data);
+
+        // effettuo il redirect alla view index
+        return redirect()->route('admin.technologies.index');
     }
 
     /**

@@ -17,7 +17,7 @@
                             <th>#</th>
                             <th>Nome tecnologia</th>
                             <th>N° progetti per tecnologia</th>
-                            <th>Slug</th>
+                            <th>Colore badge</th>
                             <th>Strumenti</th>
                         </tr>
                     </thead>
@@ -27,7 +27,10 @@
                                 <td>{{ $technology->id }}</td>
                                 <td>{{ $technology->name }}</td>
                                 <td>{{ $technology->project->count() }}</td>
-                                <td>{{ $technology->slug }}</td>
+                                <td><span class="badge rounded-pill text-bg-{{ $technology->badge_color }}">
+                                        BADGE
+                                    </span>
+                                </td>
                                 <td>
                                     <div class="d-flex">
                                         <a href="{{ route('admin.technologies.show', ['technology' => $technology->slug]) }}"
