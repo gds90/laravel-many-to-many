@@ -39,7 +39,8 @@
                                             <i class="fa-solid fa-edit"></i>
                                         </a>
                                         <a href="{{ route('admin.technologies.destroy', ['technology' => $technology->slug]) }}"
-                                            class="btn btn-sm btn-outline-danger ms-1">
+                                            class="btn btn-sm btn-outline-danger ms-1" data-bs-toggle="modal"
+                                            data-bs-target="#modal_technology_delete-{{ $technology->slug }}">
                                             <i class="fa-solid fa-trash"></i>
                                         </a>
                                         @include('admin.technologies.partials.modal_delete')

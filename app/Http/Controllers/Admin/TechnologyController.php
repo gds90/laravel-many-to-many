@@ -113,6 +113,9 @@ class TechnologyController extends Controller
      */
     public function destroy(Technology $technology)
     {
-        //
+        // elimino il progetto dal db
+        $technology->delete();
+
+        return redirect()->route('admin.technologies.index');
     }
 }
