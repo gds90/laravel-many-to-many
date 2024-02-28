@@ -62,6 +62,20 @@
                         @enderror
                     </div>
                     <div class="form-group my-2">
+                        <label class="control-label text-danger">Seleziona tecnologia</label>
+                        <div>
+                            @foreach ($technologies as $technology)
+                                <div class="form-check form-check-inline">
+                                    <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                                        class="form-check-input" value="{{ $technology->id }}"
+                                        @checked (is_array(old('technologies')) && in_array($technology->id, old('technologies')))>
+                                    <label for="technology-{{ $technology->id }}"
+                                        class="form-check-label ">{{ $technology->name }}</label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="form-group my-2">
                         <label for="link" class="control-label m-1 text-danger">Link</label>
                         <input type="text" class="form-control @error('link') is-invalid @enderror" name="link"
                             id="link" placeholder="Link del progetto" value="{{ old('title') ?? $project->link }} "

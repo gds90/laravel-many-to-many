@@ -13,9 +13,19 @@
                     @endif
                 </div>
                 <h2 class="my-3">Titolo: {{ $project->title }}</h2>
-                <p>Tipologia progetto: {{ $project->type ? $project->type->name : 'Non precisato' }}</p>
-                <p>Descrizione: {{ $project->description }}</p>
-                <p>Link: {{ $project->link }}</p>
+                <p><strong>Tecnologie utilizzate:</strong>
+                    @forelse ($project->technology as $technology)
+                        <span class="badge rounded-pill text-bg-{{ $technology->badge_color }} mx-1"
+                            aria-label="{{ $technology->name }}">
+                            {{ $technology->name }}
+                        </span>
+                    @empty
+                        <span>Il progetto non ha tecnologie associate</span>
+                    @endforelse
+                </p>
+                <p><strong>Tipologia progetto:</strong> {{ $project->type ? $project->type->name : 'Non precisato' }}</p>
+                <p><strong>Descrizione:</strong> {{ $project->description }}</p>
+                <p><strong>Link:</strong> {{ $project->link }}</p>
                 <div class="">
                     <a href="{{ route('admin.projects.index') }}" class="btn btn-sm btn-outline-success"><i
                             class="fas fa-arrow-left me-2"></i>Torna

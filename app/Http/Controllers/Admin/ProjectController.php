@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -34,8 +35,10 @@ class ProjectController extends Controller
     {
         // recupero i tipi di progetto per mostrarli nella form di creazione del progetto
         $types = Type::all();
+        // recupero i tipi di tecnologia
+        $technologies = Technology::all();
 
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -69,6 +72,11 @@ class ProjectController extends Controller
         // salvo il record sul db
         $project->save();
 
+        // controllo se sono stati aggiunte delle tecnologie al progetto
+        if ($request->has('technologies')) {
+            $project->technology()->attach($form_data['technologies']);
+        }
+
         // effettuo il redirect alla view index
         return redirect()->route('admin.projects.index');
     }
@@ -101,8 +109,10 @@ class ProjectController extends Controller
 
         // recupero i tipi di progetto per mostrarli nella form di creazione del progetto
         $types = Type::all();
+        // recupero i tipi di tecnologia
+        $technologies = Technology::all();
 
-        return view('admin.projects.edit', compact('project', 'types', 'error_message'));
+        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'error_message'));
     }
 
     /**
@@ -145,6 +155,13 @@ class ProjectController extends Controller
 
         // aggiorno il record sul db
         $project->update($form_data);
+
+        // associo le tecnologie al progetto
+        if ($request->has('technologies')) {
+            $project->technology()->sync($form_data['technologies']);
+        } else {
+            $project->technology()->sync([]);
+        }
 
         // effettuo il redirect alla view index
         return redirect()->route('admin.projects.index', compact('error_message'));

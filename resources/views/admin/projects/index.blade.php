@@ -18,7 +18,7 @@
                             <th>Tipo di progetto</th>
                             <th>Descrizione</th>
                             <th>Link</th>
-                            <th>Slug</th>
+                            <th>Tecnologie</th>
                             <th>Strumenti</th>
                         </tr>
                     </thead>
@@ -30,7 +30,16 @@
                                 <td>{{ $project->type ? $project->type->name : 'Non precisato' }}</td>
                                 <td>{{ Str::limit($project->description, 100) }}</td>
                                 <td>{{ $project->link }}</td>
-                                <td>{{ $project->slug }}</td>
+                                <td>
+                                    @forelse ($project->technology as $technology)
+                                        <span class="badge rounded-pill text-bg-{{ $technology->badge_color }}"
+                                            aria-label="{{ $technology->name }}">
+                                            {{ $technology->name }}
+                                        </span>
+                                    @empty
+                                        <span>Il progetto non ha tecnologie associate</span>
+                                    @endforelse
+                                </td>
                                 <td>
                                     <div class="d-flex">
 
