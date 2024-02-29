@@ -3,7 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h2 class="text-center text-danger">Progetti per la tecnologia "{{ $technology->name }}"</h2>
+            <h2 class="text-center text-danger text-uppercase ">Progetti per la tecnologia
+                <strong>{{ $technology->name }}</strong></h2>
             <div class="col-12 m-auto my-5 bg-light p-5 d-flex">
 
                 @forelse ($technology->project as $project)

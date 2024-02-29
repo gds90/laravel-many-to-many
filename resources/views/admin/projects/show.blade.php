@@ -5,6 +5,7 @@
         <div class="row">
             <div class="col-8 m-auto my-5 bg-light p-5 ">
                 <div class="text-center mb-3">
+                    <h2 class="my-3 text-uppercase ">{{ $project->title }}</h2>
                     @if ($project->cover_image !== null)
                         <img src="{{ asset('storage') . '/' . $project->cover_image }}" alt="{{ $project->title }}"
                             width="75%">
@@ -12,7 +13,6 @@
                         <img src="{{ asset('/img/test-img.jpg') }}" alt="{{ $project->title }}">
                     @endif
                 </div>
-                <h2 class="my-3">Titolo: {{ $project->title }}</h2>
                 <p><strong>Tecnologie utilizzate:</strong>
                     @forelse ($project->technology as $technology)
                         <span class="badge rounded-pill text-bg-{{ $technology->badge_color }} mx-1"

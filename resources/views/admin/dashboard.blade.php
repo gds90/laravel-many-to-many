@@ -11,10 +11,10 @@
                     <div class="card-header text-uppercase bg-danger-subtle ">Menù</div>
 
                     <div class="card-body">
-                        <a href="{{ route('admin.projects.index') }}" class="dashboard-link">Projects</a>
+                        <a href="{{ route('admin.projects.index') }}" class="dashboard-link">Progetti</a>
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('admin.types.index') }}" class="dashboard-link">Tipologie progetti</a>
+                        <a href="{{ route('admin.types.index') }}" class="dashboard-link">Tipologie</a>
                     </div>
                     <div class="card-body">
                         <a href="{{ route('admin.technologies.index') }}" class="dashboard-link">Tecnologie</a>

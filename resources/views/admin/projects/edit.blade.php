@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h2 class="text-uppercase text-dark-emphasis ">Modifica del progetto "{{ $project->title }}":</h2>
+                <h2 class="text-uppercase text-dark-emphasis ">Modifica del progetto <strong>"{{ $project->title }}"</strong>
+                </h2>
                 <form action="{{ route('admin.projects.update', ['project' => $project->slug]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
@@ -66,11 +67,17 @@
                         <div>
                             @foreach ($technologies as $technology)
                                 <div class="form-check form-check-inline">
-                                    <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
-                                        class="form-check-input" value="{{ $technology->id }}"
-                                        @checked (is_array(old('technologies')) && in_array($technology->id, old('technologies')))>
-                                    <label for="technology-{{ $technology->id }}"
-                                        class="form-check-label ">{{ $technology->name }}</label>
+                                    @if ($error_message != '')
+                                        <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                                            class="form-check-input" value="{{ $technology->id }}"
+                                            {{ in_array($technology->id, old('tags')) ? 'checked' : '' }}>
+                                    @else
+                                        <input type="checkbox" name="technologies[]" id="technology-{{ $technology->id }}"
+                                            class="form-check-input" value="{{ $technology->id }}"
+                                            {{ $project->technology->contains($technology->id) ? 'checked' : '' }}>
+                                        <label for="technology-{{ $technology->id }}"
+                                            class="form-check-label ">{{ $technology->name }}</label>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>
